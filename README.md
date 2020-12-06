@@ -6,6 +6,7 @@ A regressão logística é o equivalente da regressão linear, mas aplicada a pr
 Para implementar, são efetuadas duas modificações ao modelo linear. Ao modelar uma variável binária, queremos saber a probabilidade dela ser 0 ou 1, utilizando para isso a função sigmóide. Além disso, é regularizada pela função custo com fatores exponenciais que penalizam o modelo em caso de erros na predição, evitando o overfitting.
 
 --- Exemplo de Aplicação ---
+
 regressao = regressaologistica()
 
 lr = 0.001
