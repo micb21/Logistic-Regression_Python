@@ -36,9 +36,9 @@ Y = []
 
 Y = criacao_matrix(Y, l_y, c_y)
 
-#X = np.array([[2, 4], [7, 13]])
+#X = np.array([[3, 2], [1, 2]])
 
-#Y = np.array([[0.5, 0.3], [0.3, 0.5]])
+#Y = np.array([[4, 2], [3, 2]])
 
 regressao.fit(X,Y)
 
