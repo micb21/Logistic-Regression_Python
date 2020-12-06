@@ -33,3 +33,5 @@ Y = criacao_matrix(Y, l_y, c_y)
 
 regressao.fit(X,Y)
 regressao.plot_2(X,Y)
+
+![alt text](https://github.com/micb21/RegressaoLogistica/blob/main/Figure_1.png?raw=true)
