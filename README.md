@@ -19,20 +19,29 @@ erro_min = float(input('Erro mínimo para condição de paragem: '))
 regressao.init(lr, num_iteracoes, erro_min, delta_iteracao)
 
 l_x = int(input('Insira número de linhas/colunas Matriz X: '))
+
 c_x=l_x
+
 X = []
+
 X = criacao_matrix(X, l_x, c_x)
 
 #l_y = int(input('Insira numero de linhas/colunas Matriz Y: '))
+
 c_y=l_x
+
 l_y=c_y
+
 Y = []
 
 Y = criacao_matrix(Y, l_y, c_y)
+
 #X = np.array([[2, 4], [7, 13]])
+
 #Y = np.array([[0.5, 0.3], [0.3, 0.5]])
 
 regressao.fit(X,Y)
+
 regressao.plot_2(X,Y)
 
 ![alt text](https://github.com/micb21/RegressaoLogistica/blob/main/Figure_1.png?raw=true)
