@@ -1,11 +1,10 @@
-#Importar bibliotecas
 import numpy as np
 import matplotlib.pyplot as plt
 
 class regressaologistica():
 
 #Função de inicialização da regressão logística
-    def _init_(self, lr, num_iteracoes, erro_min, delta_iteracao):
+    def init(self, lr, num_iteracoes, erro_min, delta_iteracao):
         self.lr = lr
         self.num_iteracoes = num_iteracoes
         self.erro_min = erro_min
@@ -15,8 +14,11 @@ class regressaologistica():
 
 #Definição da função sigmóide
     def sigmoid(self, w):
-        return 1 / (1 + np.exp(-w))
-    #Nota: 1 dividido por 0 não é possível.
+        try:
+            return 1 / (1 + np.exp(-w))
+        except ZeroDivisionError:
+            print("Impossível dividir por 0.")
+            exit()
 
 #Treino do modelo segundo o gradiente descendente
     def fit(self, X, Y):
@@ -30,9 +32,8 @@ class regressaologistica():
 
 #Método do gradiente descendente
         index_iter=1
-        should_stop=False
 
-        while index_iter < self.num_iteracoes or should_stop != True:
+        while index_iter < self.num_iteracoes:
 
 #Função sigmóide do modelo linear
             linear_model = np.add(np.dot(X, self.parametros), self.coefconst)
@@ -45,17 +46,13 @@ class regressaologistica():
             self.parametros = self.parametros - self.lr * d_parametros
             self.coefconst -= self.lr * d_coefconst
 
-# Cálculo do erro
+#Cálculo do erro
             erro = np.subtract(y_predicted, Y)
 
 #Condições de paragem
             erro = np.sum(erro)
 
-            if (index_iter != 1 and erro_antigo < self.erro_min) and ((erro - erro_antigo) < self.delta_iteracao):
-                should_stop=True
-
-            else:
-                should_stop=False
+            if not ((index_iter != 1 and erro_antigo < self.erro_min) and ((erro - erro_antigo) < self.delta_iteracao)):
                 erro_antigo = erro
 
             index_iter += 1
@@ -73,22 +70,21 @@ class regressaologistica():
                     y_prediction_cls[i][j] = 1
                 else:
                     y_prediction_cls[i][j] = 0
-
         return y_prediction_cls
 
 #Gráfico da regressão logística
-    def plot(self, X, Y):
-        fig = plt.figure()
-        plt.plot(X, Y, color='blue', linewidth=3)
-        plt.scatter(X, self.predict(X))
+    def plot_2(self, X, Y):
+        #plt.plot(X, Y, color='blue', linewidth=3)
+        plt.plot(X, self.sigmoid(X), color="blue")
+        plt.scatter(X, self.predict(X), color="black")
         plt.show()
-
-#Definição de matriz na interface com o utilizador
-    def criacao_matrix(matrix, linhas, colunas):
-        for index_linha in range(linhas):
-            print('Insira elementos da linha', index_linha + 1, ' \n')
-            linha_atual = []
+        
+#Definição da matriz
+def criacao_matrix(matrix, linhas, colunas):
+    for index_linha in range(linhas):
+        print('Insira elementos da linha', index_linha + 1, ' \n')
+        linha_atual = []
         for index_coluna in range(colunas):
             linha_atual.append(float(input()))
         matrix.append(linha_atual)
-        return matrix
+    return np.array(matrix)
